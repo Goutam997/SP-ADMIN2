@@ -65,7 +65,7 @@ function AllStudents(){
                   </td>
                   <td>
                     <div>
-                      <button className="btn btn-outline-danger" onClick={() => handleDelete(i)}>Delete</button>
+                      <button className="btn btn-outline-danger" onClick={() => handleDelete(e.id)}>Delete</button>
                     </div>
                   </td>
                   </tr>
