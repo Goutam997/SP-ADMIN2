@@ -1,11 +1,9 @@
 import React,{useState} from "react";
 import {useNavigate} from "react-router-dom";
-const url = "https://61c41903f1af4a0017d992f0.mockapi.io/students";
+import axios from "axios";
+const url = "https://61c41903f1af4a0017d992f0.mockapi.io/students/";
 function AddStudent(){
 
-  // let allData = props.data;
-  // let navigate = useNavigate();
-  // console.log(allData.students);
   let navigate = useNavigate();
   let [name, setName] = useState("");
   let [std, setStd] = useState("");
@@ -13,33 +11,19 @@ function AddStudent(){
   let [email, setEmail] = useState("");
 
   let handleSubmit = async() => {
-    // let newArr = [...allData.students];
-    // let update = {"name":name, "std":std, "section":section, "email":email};
-    // newArr.push(update);
-    // allData.setStudents(newArr);
-    // console.log(allData);
-    // navigate("/all-students");
-    await fetch(url,{
-      method:"POST",
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+    try{
+      let response = await axios.post(url,{
         "name": name,
-        "std": std,
-        "section":section,
+        "std" : std,
+        "section": section,
         "email" : email
       })
-    })
-    .then(response => response.json())
-    .then(res => {
-      console.log(res);
-      navigate("/all-students");
-    })
-    .catch(err =>{
-      console.log("error", err)
-    })
-
+      if(response.status == 201)
+        navigate('/all-students')
+    }
+    catch(err){
+      console.log("error", err);
+    }
   }
 
   return <div className="container">

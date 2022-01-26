@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 const url = "https://61c41903f1af4a0017d992f0.mockapi.io/students";
 function AllStudents(){
@@ -60,7 +60,7 @@ function AllStudents(){
                   </td>
                   <td>
                     <div>
-                      <button className="btn btn-outline-danger" onClick={() => handleDelete(i)}>Delete</button>
+                      <button className="btn btn-outline-danger" onClick={() => handleDelete(e.id)}>Delete</button>
                     </div>
                   </td>
                   </tr>

@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
+import axios from "axios";
 const url = "https://61c41903f1af4a0017d992f0.mockapi.io/students";
-function EditStudent(props){
+function EditStudent(){
 
   // let student;
   // allData = props.data;
@@ -20,49 +21,35 @@ function EditStudent(props){
     getData();
   },[]);
 
-  async function getData(){
-    // setName(student.name);
-    // setStd(student.std);
-    // setSection(student.section);
-    // setEmail(student.email);
-    await fetch(url+"/"+params.i)
-    .then(response => response.json())
-    .then(res => {
-      console.log(res);
-      setName(res.name);
-      setStd(res.std)
-      setSection(res.section);
-      setEmail(res.email);
-    })
-    .catch(err =>{
-      console.log("error", err)
-    })
+  let getData = async() =>{
+    try{
+      let response = await axios.get(url+"/"+params.i)
+      console.log(response);
+      setName(response.data.name);
+      setStd(response.data.std)
+      setSection(response.data.section);
+      setEmail(response.data.email);
+    }
+    catch(error){
+      console.log("error",error);
+    }
   }
 
   let handleSubmit = async()=> {
-    // let update = {name,std,section,email};
-    // let newArr = [...allData.students];
-    // newArr.splice(params.i,1,update);
-    // setStudents(newArr);
-    await fetch(url+"/"+params.i,{
-      method:"PUT",
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+    
+    try{
+      let response = await axios.put(url+"/"+params.i,{
         "name": name,
         "std": std,
         "section":section,
         "email" : email
-      })
-    })
-    .then(response => response.json())
-    .then(res => {
-      navigate("/all-students")
-    })
-    .catch(err =>{
-      console.log("error", err)
-    })
+      });
+      if(response.status == 200)
+        navigate("/all-students")
+    }
+    catch(error){
+      console.log("error", error)
+    }
   }
 
   return <>
