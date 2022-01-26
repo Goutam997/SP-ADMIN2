@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 const url = "https://61c41903f1af4a0017d992f0.mockapi.io/students";
 function AllStudents(){
 
@@ -10,30 +11,24 @@ function AllStudents(){
   },[]);
 
   let getData = async() =>{
-    await fetch(url)
-    .then(response => response.json())
-    .then(res => {
-      console.log(res);
-      setStudents(res);
-    })
-    .catch(err =>{
-      console.log("error", err)
-    })
+    try{
+      let response= await axios.get(url);
+      setStudents(response.data)
+    }
+    catch(error){
+      console.log("error", error)
+    }
   }
 
   async function handleDelete(element){
-    await fetch(url+"/"+element,{
-      method:"DELETE"
-    })
-    .then(response =>response.json())
-    .then(res =>{
-      getData();
-    })
-    .catch(err =>console.log("error",err))
-    // let newArr = [...allData.students];
-
-    // newArr.splice(element,1);
-    // allData.setStudents(newArr);
+    try{
+      let response = await axios.delete(url+"/"+element);
+      if(response.status == 200)
+        getData();
+    }
+    catch(error){
+      console.log("error",error)
+    }
   }
 
   return <div className="container-fluid">
