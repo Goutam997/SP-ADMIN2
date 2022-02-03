@@ -18,8 +18,8 @@ function AddStudent(){
         "section": section,
         "email" : email
       })
-      if(response.status == 201)
-        navigate('/all-students')
+      if(response.status === 201)
+        navigate('/all-students'); 
     }
     catch(err){
       console.log("error", err);
@@ -44,7 +44,7 @@ function AddStudent(){
           <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <button type="submit" class="btn btn-primary" onClick={handleSubmit}>Submit</button>
+        <button type="submit" class="btn btn-primary" onClick={() => {handleSubmit()}}>Submit</button>
       </form>
     </div>
   </div>

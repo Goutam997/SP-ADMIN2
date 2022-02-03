@@ -44,7 +44,7 @@ function EditStudent(){
         "section":section,
         "email" : email
       });
-      if(response.status == 200)
+      if(response.status === 200)
         navigate("/all-students")
     }
     catch(error){
@@ -70,7 +70,7 @@ function EditStudent(){
           <input type="email" value={email} class="form-control" aria-describedby="emailHelp" onChange={(e)=>setEmail(e.target.value)}/>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <button type="submit" class="btn btn-primary" onClick={handleSubmit}>Update</button>
+        <button type="submit" class="btn btn-primary" onClick={() =>{handleSubmit()}}>Update</button>
       </form>
     </div>
   </>
